@@ -1,0 +1,189 @@
+#include <iostream>
+#include <stdlib.h>
+#include <cstdlib>
+#include <conio.h>
+#include <cstdlib>
+#include <windows.h>
+#include <stdio.h>
+
+#define TECLA_ARRIBA 72
+#define TECLA_ABAJO 80
+#define ENTER 13
+
+using namespace std;
+
+int menu(const char *opciones[], int n);
+
+ void gotoxy(int x,int y){
+      HANDLE hcon;
+      hcon = GetStdHandle(STD_OUTPUT_HANDLE);
+      COORD dwPos;
+      dwPos.X = x;
+      dwPos.Y= y;
+      SetConsoleCursorPosition(hcon,dwPos);
+ }
+
+void logo ()
+{
+    printf("\n");
+    printf("     ______ _______ ______  _______ _____ ______ _______ _____   _______   \n");
+    printf("    / _____|_______)  ___ %c(_______|_____|_____ (_______|____ %c (_______)\n",92,92);
+    printf("   | /      _____  | |   | |_         _   _____) )____   _   %c %c _____   \n",92,92);
+    printf("   | |     |  ___) | |   | | |       | | |  ____/  ___) | |   | |  ___)    \n");
+    printf("   | %c_____| |_____| |   | | |_____ _| |_| |    | |_____| |__/ /| |_____  \n",92);
+    printf("    %c______)_______)_|   |_|%c______|_____)_|    |_______)_____/ |_______)\n",92,92);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+}
+
+void instrucciones ()
+{
+    printf(" _____          _                       _                           \n");
+    printf("|_   _|        | |                     (_)                          \n");
+    printf("  | | _ __  ___| |_ _ __ _   _  ___ ___ _  ___  _ __   ___  ___      \n");
+    printf("  | || '_ %c/ __| __| '__| | | |/ __/ __| |/ _ %c| '_ %c / _ &c/ __|  \n",92,92,92,92);
+    printf(" _| || | | %c__ %c |_| |  | |_| | (_| (__| | (_) | | | |  __/%c__ &c   \n",92,92,92,92);
+    printf(" %c___/_| |_|___/%c__|_|   %c__,_|%c___%c___|_|%c___/|_| |_|%c___||___/      \n",92,92,92,92,92,92,92);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("PUNTUACIONES: \n");
+    printf("\n");
+    printf("Gusano (cuerpo): 10 puntos \n");
+    printf("Gusano (cabeza): 100 puntos\n");
+    printf("Ara%ca (desde lejos): 300 puntos\n",164);
+    printf("Ara%ca (desde cerca): 600 puntos\n",164);
+    printf("Ara%ca (desde muy cerca): 900 puntos\n",164);
+    printf("\n");
+    printf("\n");
+    printf("MOVIMIENTOS:\n");
+    printf("\n");
+    printf("[FLECHA ARRIBA] - Moverse Arriba\n");
+    printf("[FLECHA ABAJO] - Moverse Abajo\n");
+    printf("[FLECHA DERECHA] - Moverse Derecha\n");
+    printf("[FLECHA IZQUIERDA] - Moverse Izquierda\n");
+    printf("[BARRA ESPACIO] - Disparar.\n");
+    printf("\n");
+}
+
+void creditos ()
+{
+    system("cls");
+    printf("     ___             _ _ _            \n");
+    printf("    / __%c __ ___  __| (_) |_ ___  ___ \n",92);
+    printf("   / / | '__/ _ %c/ _` | | __/ _ %c/ __|\n",92,92);
+    printf("  / /__| | |  __/ (_| | | || (_) %c__ %c  \n",92,92);
+    printf("  %c____/_|  %c___|%c__,_|_|%c__%c___/|___/ \n",92,92,92,92,92);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("  UNIVERSIDAD AUTONOMA DE BAJA CALIFORNIA SUR.\n");
+    printf("\n");
+    printf("  Programaci%cn II \n ",162);
+    printf("\n");
+    printf("  Profesor: Jonathan Soto Mu%coz. \n",164);
+    printf("\n");
+    printf("  Alumno: Jos%c Armando Torres Garcia.\n",130);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+}
+
+int main()
+{
+    bool juego = true;
+    int op = 0;
+    const char *opciones[] = {"Jugar","Instrucciones","Creditos", "Salir"};
+    int n = 4;
+    while (juego == true)
+    {
+        system("COLOR 02");
+
+        op = menu(opciones,n);
+
+        switch (op)
+        {
+            case 1:
+                cout << "Hola" << endl;
+            break;
+
+            case 2:
+                instrucciones();
+                cout << "Presione Enter para Regresar al Menu........" << endl;
+                system("pause > null");
+                system("cls");
+            break;
+
+            case 3:
+                creditos();
+                cout << "Presione Enter para Regresar al Menu........" << endl;
+                system("pause > null");
+                system("cls");
+            break;
+
+            case 4:
+                juego = false;
+            break;
+        }
+    }
+    return 0;
+}
+
+
+int menu(const char*opciones[],int n)
+{
+    int opcionSelecionada = 1;
+    int tecla;
+    bool repetir = true;
+    do
+    {
+        system("cls");
+
+        logo();
+
+        gotoxy(5,9 + opcionSelecionada); cout << "-->";
+
+        for(int i = 0; i < n; i++)
+        {
+            gotoxy(10, 10 + i); cout << i + 1 << ".-" << opciones[i] << ".";
+        }
+
+        do
+        {
+            tecla = getch();
+        }while(tecla != TECLA_ARRIBA && tecla != TECLA_ABAJO && tecla != ENTER);
+
+        switch(tecla)
+        {
+            case TECLA_ARRIBA:
+                opcionSelecionada --;
+
+                if(opcionSelecionada < 1)
+                {
+                    opcionSelecionada = n;
+                }
+            break;
+
+            case TECLA_ABAJO:
+                opcionSelecionada ++;
+
+                if(opcionSelecionada > n)
+                {
+                    opcionSelecionada = 1;
+                }
+            break;
+
+            case ENTER:
+                repetir = false;
+            break;
+        }
+
+    }while(repetir);
+
+    return opcionSelecionada;
+}
